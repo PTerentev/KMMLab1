@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMMLab1", "KMMLab1\KMMLab1.csproj", "{18B75B59-084C-4000-BB86-8DE584F1F459}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMMLab1.Desktop", "KMMLab1\KMMLab1.Desktop.csproj", "{18B75B59-084C-4000-BB86-8DE584F1F459}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMMLab1.Infrastructure", "KMMLab1.Logic\KMMLab1.Infrastructure.csproj", "{543D1ACA-E677-4921-AC17-694016E98EC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{18B75B59-084C-4000-BB86-8DE584F1F459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18B75B59-084C-4000-BB86-8DE584F1F459}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B75B59-084C-4000-BB86-8DE584F1F459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543D1ACA-E677-4921-AC17-694016E98EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543D1ACA-E677-4921-AC17-694016E98EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543D1ACA-E677-4921-AC17-694016E98EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543D1ACA-E677-4921-AC17-694016E98EC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
