@@ -44,36 +44,37 @@ namespace KMMLab1
 
         private void calcButton_Click(object sender, EventArgs e)
         {
-            double[,] aMatrix;
-            double[] dVector;
-            decimal accuracy;
+            //double[,] aMatrix;
+            //double[] dVector;
+            //decimal accuracy;
 
-            try
-            {
-                aMatrix = GetAMatrix();
-                dVector = GetDVector();
-                accuracy = Convert.ToDecimal(accuracyTextBox.Text, CultureInfo.InvariantCulture);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error in inputed data! {ex.Message}");
-                return;
-            }
-
-            // For tests.
-            //var aMatrix = new double[3, 3]
+            //try
             //{
-            //    {8, -1, 2},
-            //    {1, 9, 3},
-            //    {2, -3, 10},
-            //};
-
-            //var dVector = new double[3]
+            //    aMatrix = GetAMatrix();
+            //    dVector = GetDVector();
+            //    accuracy = Convert.ToDecimal(accuracyTextBox.Text, CultureInfo.InvariantCulture);
+            //}
+            //catch (Exception ex)
             //{
-            //    8, 18, -5
-            //};
+            //    MessageBox.Show($"An error in the inputed data! {ex.Message}");
+            //    return;
+            //}
 
-            //var accuracy = 0.05m;
+            //For tests.
+            var aMatrix = new double[4, 4]
+            {
+                {14, 0.5, 0.9, 0.8},
+                {-1, 23, 2.2, 1.7},
+                {0.4, 1.2, 13, 0.7},
+                {1.1, 1.1, 1.9, 18},
+            };
+
+            var dVector = new double[4]
+            {
+                16, 24, -11, 12
+            };
+
+            var accuracy = 0.0001m;
 
             var outputBuilder = new StringBuilder();
             foreach(var alg in GetLinearAlgorithms())
@@ -84,6 +85,9 @@ namespace KMMLab1
                     if (alg.TrySolve(aMatrix, dVector, out var xVector, accuracy))
                     {
                         outputAlg += GetStringOfXVector(xVector);
+
+                        var accuracyResult = AccuracyHelper.CalcAccuracy(aMatrix, dVector, xVector);
+                        outputAlg += GetStringOfAccuracyResult(accuracyResult);
                     }
                     else
                     {
@@ -98,7 +102,31 @@ namespace KMMLab1
                 outputBuilder.AppendLine(outputAlg);
             }
 
+            var testMas = new double[4]
+            {
+                1.13133256352230416,
+                1.14333594901667457,
+                -1.02071670693026917,
+                0.635401465520813113,
+        };
+
+            var accuracysResult = AccuracyHelper.CalcAccuracy(aMatrix, dVector, testMas);
+            outputBuilder.AppendLine(GetStringOfAccuracyResult(accuracysResult));
+
+
             outputTextBox.Text = outputBuilder.ToString();
+        }
+
+        private string GetStringOfAccuracyResult(AccuracyResult accuracyResult)
+        {
+            var builder = new StringBuilder();
+
+            for (int i = 0; i < accuracyResult.Epsilons.Length; i++)
+            {
+                builder.AppendLine($"B{i} = {accuracyResult.BValues[i]} ; E{i} = {accuracyResult.Epsilons[i]}");
+            }
+
+            return builder.ToString();
         }
 
         private string GetStringOfXVector(double[] xVector)
@@ -107,7 +135,7 @@ namespace KMMLab1
 
             for (int i = 0; i < xVector.Length; i++)
             {
-                builder.Append($"x{i} = {xVector[i]:0.00000}; ");
+                builder.AppendLine($"x{i} = {xVector[i]}; ");
             }
 
             return builder.ToString();
